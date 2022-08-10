@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Link2QRgen</title>
+    <script src="scripts/jquery/jquery.min.js"></script>
+    <script src="scripts/jquery/qrcode.min.js"></script>
+    <script src="scripts/bootstrap/js/bootstrap.min.js"></script>
+    <link href="scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <br><br><br>
+        <!--- visible section --->
+        <form name="form" id="form" action="index.php" method="get">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Enter URL</label>
+                <input class="form-control" type="text" name="qr" value=""><br>
+                <input type="submit" class="btn btn-info" value="Submit">
+                <a href="index.php" class="btn btn-light border">Reset</a>
+            </div>
+        </form>
+        <!--- /visible section --->
+        <!--- hidden section --->
+
+    </div>
+    <script>
+    window.onload = function () {
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 250,
+            height: 250,
+        });
+
+        function makeCode() {
+            var elText = document.getElementById("text");
+
+            if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+            }
+            console.log("Calculare QR");
+            qrcode.makeCode(elText.value);
+        }
+
+        makeCode();
+
+        $("#text").
+        on("blur", function () {
+            makeCode();
+        }).
+        on("keydown", function (e) {
+            if (e.keyCode == 13) {
+                console.log("Apasar ENTER");
+                makeCode();
+            }
+        });
+    };
+    </script>
+</body>
+</html>
